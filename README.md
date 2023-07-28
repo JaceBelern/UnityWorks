@@ -1,1 +1,25 @@
 # UnityWorks
+## VampireLikeFramework：类吸血鬼幸存者游戏简单框架
+1. 功能：
+  - 使用InputSystem，支持多设备输入；
+  - 继承MonoBehaviour与不继承MonoBehaviour的单例基类；
+  - 基于单例模式的对象池管理类；
+  - 使用对象池模式和工厂方法模式管理敌人及弹幕等对象；
+2. 使用：
+  使用框架快速实现一个自己设计的类吸血鬼幸存者游戏。
+  - 玩家逻辑（\Scripts\Logic\Player\Player.cs）：通过枚举对象实例化不同的弹幕工厂，更改枚举类和弹幕工厂类即可自定义不同种类的武器；
+  - 对象池管理类（\Scripts\Manager\ObjectPool.cs）：使用单例模式获取唯一对象池，对象池用Dictionary管理对象，Key的类型为string，为预制体在Resources文件夹下的路径；Value的类型为List<GameObject>,用来存储对象。
+    - 弹幕逻辑（\Scripts\Logic\Bullets）：包括弹幕基类，自定义弹幕继承该基类并重写部分方法可实现不同行为；在工厂类中从对象池获取，在自身逻辑中放回对象池；
+    - 怪物逻辑（\Scripts\Logic\Enemy）：同弹幕逻辑；
+  - 怪物管理类（\Scripts\Manager\EnemyManager.cs）：修改该类可以自定义敌人的出生位置、出生频率以及敌人类型；
+  - 游戏管理类（\Scripts\Manager\GameManager.cs）：默认游戏时间10分钟并进行倒计时，修改该类可自定义游戏数据。
+3. 未实现：
+  - 敌人死亡掉落经验及玩家升级；
+  - 玩家升级获取装备和能力；
+  - 阶段性boss；
+  - 成就系统；
+  - UI框架及声音系统。
+4. 建议：
+  - 同样使用对象池和工厂方法模式管理经验宝石，修改怪物的死亡逻辑；
+  - 使用观察者模式（订阅-发布模式）来实现成就系统，可以创建一个继承自单例基类的AchievementManager类作为调度中心；
+  - 如果玩家有更复杂的行为建议使用状态模式重构玩家控制代码。
